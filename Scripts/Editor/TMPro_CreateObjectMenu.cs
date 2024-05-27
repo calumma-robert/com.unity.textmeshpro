@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEditor.Presets;
 using UnityEditor.SceneManagement;
 using UnityEditor.Experimental.SceneManagement;
+using UnityEditor.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -339,10 +340,17 @@ namespace TMPro.EditorUtilities
             var esys = Object.FindFirstObjectByType<EventSystem>();
             if (esys == null)
             {
+#if UNITY_2023_3_OR_NEWER
+                var eventSystem = ObjectFactory.CreateGameObject("EventSystem");
+                GameObjectUtility.SetParentAndAlign(eventSystem, parent);
+                esys = ObjectFactory.AddComponent<EventSystem>(eventSystem);
+                InputModuleComponentFactory.AddInputModule(eventSystem);
+#else
                 var eventSystem = new GameObject("EventSystem");
                 GameObjectUtility.SetParentAndAlign(eventSystem, parent);
                 esys = eventSystem.AddComponent<EventSystem>();
                 eventSystem.AddComponent<StandaloneInputModule>();
+#endif
 
                 Undo.RegisterCreatedObjectUndo(eventSystem, "Create " + eventSystem.name);
             }

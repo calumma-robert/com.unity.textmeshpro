@@ -1854,7 +1854,7 @@ namespace TMPro
                 }
                 #endregion
 
-                bool isUsingAlternativeTypeface;
+                bool isUsingAlternativeTypeface = false;
                 bool isUsingFallbackOrAlternativeTypeface = false;
 
                 TMP_FontAsset prev_fontAsset = m_currentFontAsset;
@@ -1889,7 +1889,27 @@ namespace TMPro
 
                 // Lookup the Glyph data for each character and cache it.
                 #region LOOKUP GLYPH
-                TMP_TextElement character = GetTextElement(unicode, m_currentFontAsset, m_FontStyleInternal, m_FontWeightInternal, out isUsingAlternativeTypeface);
+                TMP_TextElement character = null;
+
+                uint nextCharacter = i + 1 < textProcessingArray.Length ? textProcessingArray[i + 1].unicode : 0;
+
+                // Check Emoji Fallback first in the event the requested unicode code point is an Emoji
+                if (emojiFallbackSupport && ((TMP_TextParsingUtilities.IsEmojiPresentationForm(unicode) && nextCharacter != 0xFE0E) || (TMP_TextParsingUtilities.IsEmoji(unicode) && nextCharacter == 0xFE0F)))
+                {
+                    if (TMP_Settings.emojiFallbackTextAssets != null && TMP_Settings.emojiFallbackTextAssets.Count > 0)
+                    {
+                        character = TMP_FontAssetUtilities.GetTextElementFromTextAssets(unicode, m_currentFontAsset, TMP_Settings.emojiFallbackTextAssets, true, fontStyle, fontWeight, out isUsingAlternativeTypeface);
+
+                        if (character != null)
+                        {
+                            // Add character to font asset lookup cache
+                            //fontAsset.AddCharacterToLookupCache(unicode, character);
+                        }
+                    }
+                }
+
+                if (character == null)
+                    character = GetTextElement(unicode, m_currentFontAsset, m_FontStyleInternal, m_FontWeightInternal, out isUsingAlternativeTypeface);
 
                 // Check if Lowercase or Uppercase variant of the character is available.
                 /* Not sure this is necessary anyone as it is very unlikely with recursive search through fallback fonts.
@@ -1907,7 +1927,7 @@ namespace TMPro
                     }
                 }*/
 
-                // Special handling for missing character.
+                #region MISSING CHARACTER HANDLING
                 // Replace missing glyph by the Square (9633) glyph or possibly the Space (32) glyph.
                 if (character == null)
                 {
@@ -1959,6 +1979,7 @@ namespace TMPro
                         Debug.LogWarning(formattedWarning, this);
                     }
                 }
+                #endregion
 
                 m_textInfo.characterInfo[m_totalCharacterCount].alternativeGlyph = null;
 
@@ -1971,7 +1992,6 @@ namespace TMPro
                     }
 
                     #region VARIATION SELECTOR
-                    uint nextCharacter = i + 1 < textProcessingArray.Length ? (uint)textProcessingArray[i + 1].unicode : 0;
                     if (nextCharacter >= 0xFE00 && nextCharacter <= 0xFE0F || nextCharacter >= 0xE0100 && nextCharacter <= 0xE01EF)
                     {
                         // Get potential variant glyph index

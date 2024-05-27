@@ -1,7 +1,7 @@
 {
   "name": "com.unity.textmeshpro",
   "displayName": "TextMeshPro",
-  "version": "3.2.0-pre.9",
+  "version": "3.2.0-pre.10",
   "unity": "2020.3",
   "description": "TextMeshPro is the ultimate text solution for Unity. It's the perfect replacement for Unity's UI Text and the legacy Text Mesh.\n\nPowerful and easy to use, TextMeshPro (also known as TMP) uses Advanced Text Rendering techniques along with a set of custom shaders; delivering substantial visual quality improvements while giving users incredible flexibility when it comes to text styling and texturing.\n\nTextMeshPro provides Improved Control over text formatting and layout with features like character, word, line and paragraph spacing, kerning, justified text, Links, over 30 Rich Text Tags available, support for Multi Font & Sprites, Custom Styles and more.\n\nGreat performance. Since the geometry created by TextMeshPro uses two triangles per character just like Unity's text components, this improved visual quality and flexibility comes at no additional performance cost.\n\n\n\nUPGRADE NOTE\n--------------------\nThis latest release of the TMP package includes updated TMP Essential Resources and TMP Examples & Extras. Be sure to update those via the \"Window - TextMeshPro - Import...\" menu options.",
   "keywords": [
@@ -16,15 +16,15 @@
     "com.unity.ugui": "1.0.0"
   },
   "_upm": {
-    "changelog": "### Changes\n- Fix Incorrect cursor placement when selecting text and typing if text is center-aligned.\n- Setting the game object layer for the Dropdown blocker game object to match the Canvas value.\n- Fixed the virtual keyboard of InputField not closing upon Enter/Newline on Android.\n- Fixed Ideographic Variation Selector.\n- Ensure Dynamic FontAsset have a readable Atlas\n- Fixed compile error on TMP_PostBuildProcessorHandler.cs when building for iOS with \"install into source code\"\n- Fixed missing help documentation for SpriteAsset component in TextCore."
+    "changelog": "### Changes\n- Ensure space and underline are always added to Static FontAsset. (UUM-45512)\n- Fix bug that occurs with the Input Field, resulting in an incorrect cursor position when modifying long text input. (UUM-58685)\n- Fixed compile error on TMP_PostBuildProcessorHandler.cs when building for iOS with \"install into source code (UUM-57710)\n- Fixed opening style tag overflow and TextSettings upgrade (UUM-30205)\n- Fixed crash occurring in the FontAssetCreatorWindow. (UUM-66950)\n- Fixed incorrect handling of Emoji Presentation forms ensuring emojis such as ©️ are displayed in text form, whereas 🚀 is displayed in its color presentation form.\n- Added support for Emoji Variant Selectors u+FE0E and u+FE0F to control whether an emoji is displayed in text or presentation form: GitHub PR #48504"
   },
   "upmCi": {
-    "footprint": "86848703e1786f2fe299c216facdb77fa5bbde80"
+    "footprint": "9ae25a969fffc8f9f1fda146dec38566dfcd1ba7"
   },
   "documentationUrl": "https://docs.unity3d.com/Packages/com.unity.textmeshpro@3.2/manual/index.html",
   "repository": {
     "url": "https://github.cds.internal.unity3d.com/unity/unity.git",
     "type": "git",
-    "revision": "33af836c4402901269ec9e18f5bf21cbdd17d978"
+    "revision": "8fca90baea965bab48c88326f1d4ca248b64097b"
   }
 }

@@ -1,6 +1,16 @@
 # Changelog
 These are the release notes for the TextMesh Pro UPM package which was first introduced with Unity 2018.1. Please see the following link for the Release Notes for prior versions of TextMesh Pro. http://digitalnativestudios.com/forum/index.php?topic=1363.0
 
+## [3.2.0-pre.10] - 2024-05-27
+### Changes
+- Ensure space and underline are always added to Static FontAsset. (UUM-45512)
+- Fix bug that occurs with the Input Field, resulting in an incorrect cursor position when modifying long text input. (UUM-58685)
+- Fixed compile error on TMP_PostBuildProcessorHandler.cs when building for iOS with "install into source code (UUM-57710)
+- Fixed opening style tag overflow and TextSettings upgrade (UUM-30205)
+- Fixed crash occurring in the FontAssetCreatorWindow. (UUM-66950)
+- Fixed incorrect handling of Emoji Presentation forms ensuring emojis such as ©️ are displayed in text form, whereas 🚀 is displayed in its color presentation form.
+- Added support for Emoji Variant Selectors u+FE0E and u+FE0F to control whether an emoji is displayed in text or presentation form: GitHub PR #48504
+
 ## [3.2.0-pre.9] - 2024-02-20
 ### Changes
 - Fix Incorrect cursor placement when selecting text and typing if text is center-aligned.

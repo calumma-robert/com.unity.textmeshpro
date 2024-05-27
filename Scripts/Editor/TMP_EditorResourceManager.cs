@@ -103,13 +103,16 @@ namespace TMPro
         }
 
         #if UNITY_2023_3_OR_NEWER
-            void OnEndOfFrame(ScriptableRenderContext renderContext, List<Camera> cameras)
-        #else
-            void OnEndOfFrame(ScriptableRenderContext renderContext, Camera[] cameras)
-        #endif
+        void OnEndOfFrame(ScriptableRenderContext renderContext, List<Camera> cameras)
         {
             DoPostRenderUpdates();
         }
+        #else
+        void OnEndOfFrame(ScriptableRenderContext renderContext, Camera[] cameras)
+        {
+            DoPostRenderUpdates();
+        }
+        #endif
 
         /// <summary>
         /// Register resource for re-import.

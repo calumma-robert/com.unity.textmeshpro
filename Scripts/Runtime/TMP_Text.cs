@@ -2143,14 +2143,14 @@ namespace TMPro
         /// </summary>
         void PopulateTextProcessingArray()
         {
-            int srcLength = m_TextBackingArray.Count;
-
-            // Make sure parsing buffer is large enough to handle the required text.
-            if (m_TextProcessingArray.Length < srcLength)
-                ResizeInternalArray(ref m_TextProcessingArray, srcLength);
-
             // Reset Style stack back to default
             TMP_TextProcessingStack<int>.SetDefault(m_TextStyleStacks, 0);
+
+            int srcLength = m_TextBackingArray.Count;
+            int requiredCapacity = srcLength + (textStyle.styleOpeningDefinition?.Length ?? 0);
+            // Make sure parsing buffer is large enough to handle the required text.
+            if (m_TextProcessingArray.Length < requiredCapacity)
+                ResizeInternalArray(ref m_TextProcessingArray, requiredCapacity);
 
             m_TextStyleStackDepth = 0;
             int writeIndex = 0;
@@ -6078,22 +6078,6 @@ namespace TMPro
         internal TMP_TextElement GetTextElement(uint unicode, TMP_FontAsset fontAsset, FontStyles fontStyle, FontWeight fontWeight, out bool isUsingAlternativeTypeface)
         {
             //Debug.Log("Unicode: " + unicode.ToString("X8"));
-
-            if (m_EmojiFallbackSupport && TMP_TextParsingUtilities.IsEmoji(unicode))
-            {
-                if (TMP_Settings.emojiFallbackTextAssets != null && TMP_Settings.emojiFallbackTextAssets.Count > 0)
-                {
-                    TMP_TextElement textElement = TMP_FontAssetUtilities.GetTextElementFromTextAssets(unicode, fontAsset, TMP_Settings.emojiFallbackTextAssets, true, fontStyle, fontWeight, out isUsingAlternativeTypeface);
-
-                    if (textElement != null)
-                    {
-                        // Add character to font asset lookup cache
-                        //fontAsset.AddCharacterToLookupCache(unicode, character);
-
-                        return textElement;
-                    }
-                }
-            }
 
             TMP_Character character = TMP_FontAssetUtilities.GetCharacterFromFontAsset(unicode, fontAsset, false, fontStyle, fontWeight, out isUsingAlternativeTypeface);
 

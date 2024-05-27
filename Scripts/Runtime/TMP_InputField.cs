@@ -1793,7 +1793,7 @@ namespace TMPro
 
                         if (lineType != LineType.MultiLineNewline && c == '\n')
                         {
-                            m_SoftKeyboard.text = m_Text;
+                            UpdateLabel();
 
                             OnSubmit(null);
                             OnDeselect(null);
