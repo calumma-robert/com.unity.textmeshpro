@@ -1450,13 +1450,13 @@ namespace TMPro
         ///
         /// </summary>
         public float maxWidth { get { return m_maxWidth; } }
-        protected float m_maxWidth;
+        protected float m_maxWidth = -1f;
 
         /// <summary>
         ///
         /// </summary>
         public float maxHeight { get { return m_maxHeight; } }
-        protected float m_maxHeight;
+        protected float m_maxHeight = -1f;
 
         /// <summary>
         ///

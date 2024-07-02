@@ -13,7 +13,7 @@
   ],
   "category": "Text Rendering",
   "dependencies": {
-    "com.unity.ugui": "1.0.0"
+    "com.unity.ugui": "1.0.3"
   },
   "_upm": {
     "changelog": "### Changes\n- Ensure space and underline are always added to Static FontAsset. (UUM-45512)\n- Fix bug that occurs with the Input Field, resulting in an incorrect cursor position when modifying long text input. (UUM-58685)\n- Fixed compile error on TMP_PostBuildProcessorHandler.cs when building for iOS with \"install into source code (UUM-57710)\n- Fixed opening style tag overflow and TextSettings upgrade (UUM-30205)\n- Fixed crash occurring in the FontAssetCreatorWindow. (UUM-66950)\n- Fixed incorrect handling of Emoji Presentation forms ensuring emojis such as ©️ are displayed in text form, whereas 🚀 is displayed in its color presentation form.\n- Added support for Emoji Variant Selectors u+FE0E and u+FE0F to control whether an emoji is displayed in text or presentation form: GitHub PR #48504"
