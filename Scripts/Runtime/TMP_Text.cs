@@ -5359,6 +5359,12 @@ namespace TMPro
         /// <param name="vertexColor"></param>
         protected virtual void SaveSpriteVertexInfo(Color32 vertexColor)
         {
+            try { SaveSpriteVertexInfoInternal(vertexColor); }
+            catch (System.Exception ex) { Debug.LogWarning($"Failed to save sprite vertex info for text {text} with {m_characterCount} characters in text object \"{name}\". Please make sure the sprite asset is assigned correctly.", this); }
+        }
+
+        void SaveSpriteVertexInfoInternal(Color32 vertexColor)
+        {
             // Save the Vertex Position for the Character
             #region Setup Mesh Vertices
             m_textInfo.characterInfo[m_characterCount].vertex_BL.position = m_textInfo.characterInfo[m_characterCount].bottomLeft;
