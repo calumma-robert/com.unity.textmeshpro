@@ -1,6 +1,15 @@
 # Changelog
 These are the release notes for the TextMesh Pro UPM package which was first introduced with Unity 2018.1. Please see the following link for the Release Notes for prior versions of TextMesh Pro. http://digitalnativestudios.com/forum/index.php?topic=1363.0
 
+## [3.2.0-pre.11] - 2024-12-09
+### Changes
+- Fix TMP crash on Hyphen wrapping.
+- Fixed incorrect character caching when font styles and weights are used. UUM-87529
+- Fixed the iOS crash when using fallback fonts created at runtime.
+- Fix exception thrown when pasting text into TMP inputfield with custom validator.
+- Avoid creating a new submesh if the previous one still has space.
+- Fixed the broken URL of the help button on the TextMesh Pro Settings page.
+
 ## [3.2.0-pre.10] - 2024-05-27
 ### Changes
 - Ensure space and underline are always added to Static FontAsset. (UUM-45512)
